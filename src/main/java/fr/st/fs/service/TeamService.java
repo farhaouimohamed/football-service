@@ -50,14 +50,11 @@ public class TeamService {
      */
     public Team addTeam(String name, String acronym, BigDecimal budget, List<Player> players) {
         // Create new team
-        Team team = Team.builder().name(name).acronym(acronym).players(players).build();
+        Team team = Team.builder().name(name).budget(budget).acronym(acronym).players(players).build();
 
         // Add players to team
         if (players != null) {
-            players.forEach(player -> {
-                player.setTeam(team);
-                team.getPlayers().add(player);
-            });
+            players.forEach(player -> {player.setTeam(team);});
         }
 
         // Save team to database

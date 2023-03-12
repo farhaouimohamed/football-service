@@ -1,5 +1,6 @@
 package fr.st.fs.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -26,6 +27,7 @@ public class Team implements Serializable{
     @Column(nullable = false)
     private BigDecimal budget;
 
+    @JsonIgnoreProperties(value = { "active" }, allowGetters = true)
     @OneToMany(mappedBy = "team", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Player> players = new ArrayList<>();
 

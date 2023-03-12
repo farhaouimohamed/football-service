@@ -1,6 +1,7 @@
 package fr.st.fs.controller;
 
 import fr.st.fs.entity.Player;
+import fr.st.fs.entity.Team;
 import fr.st.fs.payload.ApiResponse;
 import fr.st.fs.service.TeamService;
 import org.springframework.http.HttpStatus;
@@ -14,7 +15,7 @@ import java.util.List;
 @RequestMapping("/api/teams")
 public class TeamController {
 
-    private final TeamService teamService;
+    private TeamService teamService;
 
     public TeamController(TeamService teamService) {
         this.teamService = teamService;
@@ -47,20 +48,13 @@ public class TeamController {
     /**
      * Adds a new team with the given data.
      *
-     * @param name    the name of the team
-     * @param acronym the acronym of the team
-     * @param budget  the budget of the team
-     * @param players the list of players in the team (may be null or empty)
+     * @param team    the team (we can use the DTO rather than the entity)
      * @return the newly created team
      */
     @PostMapping
-    public ResponseEntity<?> addTeam(
-            @RequestParam String name,
-            @RequestParam String acronym,
-            @RequestParam BigDecimal budget,
-            @RequestBody(required = false) List<Player> players) {
+    public ResponseEntity<?> addTeam(@RequestBody Team team) {
         try {
-            return ResponseEntity.ok(teamService.addTeam(name, acronym, budget, players));
+            return ResponseEntity.ok(teamService.addTeam(team.getName(), team.getAcronym(), team.getBudget(), team.getPlayers()));
         } catch (Exception e) {
             ApiResponse apiResponse = new ApiResponse(false, "Invalid input"+e.getMessage(), HttpStatus.BAD_REQUEST);
             return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);

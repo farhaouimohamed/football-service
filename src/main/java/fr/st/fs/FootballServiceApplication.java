@@ -27,9 +27,9 @@ public class FootballServiceApplication {
             teamService.addTeam("Team 1", "T1", BigDecimal.valueOf(12.3), playersTeam1);
 
             List<Player> playersTeam2 = new ArrayList<>();
-            playersTeam1.add(Player.builder().name("Sami").position(10).build());
-            playersTeam1.add(Player.builder().name("Charles").position(7).build());
-            teamService.addTeam("Team 2", "T2", BigDecimal.valueOf(14.3), playersTeam1);
+            playersTeam2.add(Player.builder().name("Sami").position(10).build());
+            playersTeam2.add(Player.builder().name("Charles").position(7).build());
+            teamService.addTeam("Team 2", "T2", BigDecimal.valueOf(14.3), playersTeam2);
         };
     }
 
